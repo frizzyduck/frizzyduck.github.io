@@ -1,0 +1,123 @@
+:root {
+    --bg: #1e1e2e;
+    --card-bg: #181825;
+    --text: #cdd6f4;
+    --accent: #cba6f7;
+    --secondary: #f5c2e7;
+    --code-bg: #11111b;
+    --border: #313244;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* Hyprland Waybar Style */
+.waybar {
+    background: rgba(17, 17, 27, 0.8);
+    padding: 8px 20px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.hero {
+    height: 40vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-size: cover;
+    background-position: center;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    color: var(--secondary);
+    margin-bottom: 10px;
+}
+
+.card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 30px;
+    transition: transform 0.2s ease;
+}
+
+.card:hover {
+    border-color: var(--accent);
+}
+
+h2 {
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.code-block {
+    background: var(--code-bg);
+    padding: 15px;
+    border-left: 4px solid var(--accent);
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    overflow-x: auto;
+    margin: 15px 0;
+}
+
+/* Image Gallery Tiling */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.gallery img {
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    cursor: pointer;
+}
+
+/* Troubleshooting Table */
+.fix-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.fix-table th, .fix-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+}
+
+.fix-table th {
+    color: var(--secondary);
+}
+
+footer {
+    text-align: center;
+    padding: 40px;
+    opacity: 0.6;
+    font-size: 0.8rem;
+}

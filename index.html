@@ -1,11 +1,86 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Arch Linux + Hyprland Setup</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miles | Arch + Hyprland Setup</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>Arch Linux + Hyprland: Secure Boot Setup</h1>
-    <p>This project documents my full secure dual-boot Linux environment.</p>
+
+    <nav class="waybar">
+        <div class="nav-left"><span></span> Arch Linux + Hyprland</div>
+        <div class="nav-right">Fri 23:08 </div>
+    </nav>
+
+    <header class="hero" style="background-image: linear-gradient(rgba(26, 24, 38, 0.6), rgba(26, 24, 38, 0.6)), url('image_153c60.jpg');">
+        <h1>Ultimate Setup Guide</h1>
+        <p>A signed, secure, and aesthetic Wayland environment.</p>
+    </header>
+
+    <main class="container">
+        
+        <section class="card">
+            <h2><span class="icon">󰒃</span> 1. Core System & Secure Boot</h2>
+            <p>Establishing a signed, secure dual-boot environment with Windows.</p>
+            <div class="code-block">
+                <code>sudo grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=EndeavourOS --modules="tpm" --disable-shim-lock</code>
+            </div>
+            <ul>
+                <li><strong>Secure Boot:</strong> Use <code>sbctl</code> to self-sign the kernel.</li>
+                <li><strong>Key Maintenance:</strong> Initialize <code>pacman</code> keys before major installs.</li>
+            </ul>
+        </section>
+
+        <section class="card">
+            <h2><span class="icon"></span> 2. Essential Tooling</h2>
+            <p>Setting up the foundations for AUR and Python applications.</p>
+            <div class="code-block">
+                <code>git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si</code>
+            </div>
+            <div class="tip">
+                <strong>Locale Fix:</strong> If builds fail, run <code>export LC_ALL=en_US.UTF-8</code>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2><span class="icon"></span> 7. Final Result</h2>
+            <div class="gallery">
+                <img src="Picture4.png" alt="Desktop Wallpaper">
+                <img src="Picture3.png" alt="Wofi Launcher">
+                <img src="Picture2.png" alt="Terminal Tiling">
+                <img src="Picture1.png" alt="Custom GRUB">
+            </div>
+        </section>
+
+        <section class="card">
+            <h2><span class="icon"></span> Troubleshooting Reference</h2>
+            <table class="fix-table">
+                <thead>
+                    <tr>
+                        <th>Issue</th>
+                        <th>Solution</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>AUR apps not appearing</td>
+                        <td>Update desktop database or restart session.</td>
+                    </tr>
+                    <tr>
+                        <td>Discord Screen Share</td>
+                        <td>Use Vesktop + xdg-desktop-portal-hyprland.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>Built with  on Arch Linux</p>
+    </footer>
+
 </body>
 </html>
