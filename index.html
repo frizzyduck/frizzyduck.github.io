@@ -3,83 +3,456 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Miles | Arch + Hyprland Setup</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Arch Linux + Hyprland | Setup Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --base: #1e1e2e;
+            --mantle: #181825;
+            --crust: #11111b;
+            --text: #cdd6f4;
+            --subtext: #a6adc8;
+            --mauve: #cba6f7;
+            --pink: #f5c2e7;
+            --blue: #89b4fa;
+            --teal: #94e2d5;
+            --surface0: #313244;
+            --surface1: #45475a;
+        }
+
+        body {
+            background-color: var(--base);
+            color: var(--text);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        /* Waybar Inspired Header */
+        .waybar {
+            background: rgba(17, 17, 27, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--surface0);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .waybar-item {
+            background: var(--surface0);
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            border: 1px solid var(--surface1);
+        }
+
+        /* Hero Section */
+        .hero-bg {
+            background-image: linear-gradient(to bottom, rgba(30, 30, 46, 0.4), var(--base)), url('image_153c60.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Terminal Style Code Blocks */
+        .kitty-terminal {
+            background-color: var(--crust);
+            border: 1px solid var(--surface1);
+            border-radius: 12px;
+            padding: 20px;
+            font-family: 'JetBrains Mono', monospace;
+            position: relative;
+            margin: 1.5rem 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .kitty-terminal::before {
+            content: "● ● ●";
+            color: #585b70;
+            font-size: 10px;
+            position: absolute;
+            top: 10px;
+            left: 15px;
+            letter-spacing: 2px;
+        }
+
+        code {
+            color: var(--teal);
+            word-break: break-all;
+        }
+
+        .highlight-cmd { color: var(--mauve); font-weight: bold; }
+        .highlight-flag { color: var(--pink); }
+
+        /* Custom Table */
+        .fix-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            background: var(--mantle);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--surface0);
+        }
+
+        .fix-table th {
+            background: var(--surface0);
+            color: var(--mauve);
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .fix-table td {
+            padding: 15px;
+            border-bottom: 1px solid var(--surface0);
+            vertical-align: top;
+        }
+
+        .fix-table tr:last-child td { border-bottom: none; }
+
+        /* Large Gallery */
+        .gallery-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        @media (max-width: 768px) {
+            .gallery-container { grid-template-columns: 1fr; }
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--surface1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: var(--mantle);
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.02);
+            border-color: var(--mauve);
+            z-index: 10;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .gallery-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(17,17,27,0.9));
+            padding: 20px;
+            font-size: 0.9rem;
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        /* Section Cards */
+        .content-card {
+            background: var(--mantle);
+            border: 1px solid var(--surface0);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 40px;
+        }
+
+        .section-num {
+            color: var(--mauve);
+            font-family: 'JetBrains Mono', monospace;
+            margin-right: 10px;
+        }
+
+        .bullet-list li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 10px;
+        }
+
+        .bullet-list li::before {
+            content: "󰄲";
+            position: absolute;
+            left: 0;
+            color: var(--pink);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .resource-link {
+            color: var(--blue);
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .resource-link:hover {
+            color: var(--pink);
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
 
-    <nav class="waybar">
-        <div class="nav-left"><span></span> Arch Linux + Hyprland</div>
-        <div class="nav-right">Fri 23:08 </div>
+    <!-- Waybar Nav -->
+    <nav class="waybar fixed top-0 w-full z-50 p-2 flex justify-between items-center px-4 md:px-12">
+        <div class="flex gap-2">
+            <div class="waybar-item text-mauve font-bold"> Arch Linux</div>
+            <div class="waybar-item hidden md:block">Hyprland</div>
+        </div>
+        <div class="hidden lg:flex gap-4">
+            <a href="#setup" class="hover:text-pink transition">Setup</a>
+            <a href="#desktop" class="hover:text-pink transition">Desktop</a>
+            <a href="#audio" class="hover:text-pink transition">Audio</a>
+            <a href="#fixit" class="hover:text-pink transition">Fix-it</a>
+            <a href="#result" class="hover:text-pink transition">Result</a>
+        </div>
+        <div class="flex gap-2">
+            <div class="waybar-item">Fri 13 23:08 </div>
+            <div class="waybar-item text-teal">Connected 󰖩</div>
+        </div>
     </nav>
 
-    <header class="hero" style="background-image: linear-gradient(rgba(26, 24, 38, 0.6), rgba(26, 24, 38, 0.6)), url('image_153c60.jpg');">
-        <h1>Ultimate Setup Guide</h1>
-        <p>A signed, secure, and aesthetic Wayland environment.</p>
+    <!-- Hero -->
+    <header class="hero-bg min-h-[70vh] flex flex-col items-center justify-center text-center px-6 pt-20">
+        <h1 class="text-5xl md:text-7xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-pink to-mauve">
+            Arch Linux + Hyprland
+        </h1>
+        <p class="text-xl md:text-2xl text-subtext max-w-2xl font-light">
+            A comprehensive guide to building a signed, secure, and aesthetic dual-boot Tiling Window Manager environment.
+        </p>
+        <div class="mt-8 animate-bounce text-mauve">
+            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+        </div>
     </header>
 
-    <main class="container">
-        
-        <section class="card">
-            <h2><span class="icon">󰒃</span> 1. Core System & Secure Boot</h2>
-            <p>Establishing a signed, secure dual-boot environment with Windows.</p>
-            <div class="code-block">
-                <code>sudo grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=EndeavourOS --modules="tpm" --disable-shim-lock</code>
+    <main class="max-w-5xl mx-auto px-6 py-12">
+
+        <!-- 1. Core System -->
+        <section id="setup" class="content-card">
+            <h2 class="text-3xl font-bold mb-6 flex items-center">
+                <span class="section-num">01.</span> Core System & Secure Boot
+            </h2>
+            <p class="text-subtext mb-6">Focus: Establishing a signed, secure dual-boot environment with Windows using GRUB and TPM modules.</p>
+            
+            <h3 class="text-pink font-semibold text-lg mb-2">Grub & TPM Installation</h3>
+            <div class="kitty-terminal">
+                <code><span class="highlight-cmd">sudo</span> grub-install <span class="highlight-flag">--target</span>=x86_64-efi <span class="highlight-flag">--efi-directory</span>=/boot/efi <span class="highlight-flag">--bootloader-id</span>=EndeavourOS <span class="highlight-flag">--modules</span>="tpm" <span class="highlight-flag">--disable-shim-lock</span></code>
             </div>
-            <ul>
-                <li><strong>Secure Boot:</strong> Use <code>sbctl</code> to self-sign the kernel.</li>
-                <li><strong>Key Maintenance:</strong> Initialize <code>pacman</code> keys before major installs.</li>
+
+            <ul class="bullet-list mt-6 space-y-4">
+                <li><strong>Secure Boot:</strong> Use <code>sbctl</code> to self-sign the kernel and GRUB binaries for complete system integrity.</li>
+                <li><strong>Key Maintenance:</strong> Always initialize pacman keys before installing major packages.</li>
             </ul>
-        </section>
 
-        <section class="card">
-            <h2><span class="icon"></span> 2. Essential Tooling</h2>
-            <p>Setting up the foundations for AUR and Python applications.</p>
-            <div class="code-block">
-                <code>git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si</code>
-            </div>
-            <div class="tip">
-                <strong>Locale Fix:</strong> If builds fail, run <code>export LC_ALL=en_US.UTF-8</code>
+            <div class="kitty-terminal mt-4">
+                <code><span class="highlight-cmd">sudo</span> pacman-key --init<br><span class="highlight-cmd">sudo</span> pacman-key --populate archlinux</code>
             </div>
         </section>
 
-        <section class="card">
-            <h2><span class="icon"></span> 7. Final Result</h2>
-            <div class="gallery">
-                <img src="Picture4.png" alt="Desktop Wallpaper">
-                <img src="Picture3.png" alt="Wofi Launcher">
-                <img src="Picture2.png" alt="Terminal Tiling">
-                <img src="Picture1.png" alt="Custom GRUB">
+        <!-- 2. Essential Tooling -->
+        <section class="content-card">
+            <h2 class="text-3xl font-bold mb-6 flex items-center">
+                <span class="section-num">02.</span> Essential Tooling & Packages
+            </h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-teal font-semibold mb-4">Base & AUR Helper</h3>
+                    <ul class="bullet-list space-y-4">
+                        <li><strong>Base Development:</strong> <code>sudo pacman -S base-devel git</code></li>
+                        <li><strong>AUR Helper (yay):</strong> The backbone of custom Arch builds.</li>
+                    </ul>
+                    <div class="kitty-terminal">
+                        <code>git clone https://aur.archlinux.org/yay.git<br>cd yay && makepkg -si</code>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-pink font-semibold mb-4">Fixes & Locales</h3>
+                    <p class="text-subtext mb-4">If you hit "externally managed environment" errors in Python, use <code>pipx</code> or install via AUR.</p>
+                    <p class="text-sm border-l-2 border-teal pl-4 italic">
+                        "If builds fail due to locale errors, ensure your export is set."
+                    </p>
+                    <div class="kitty-terminal mt-4">
+                        <code>export LC_ALL=en_US.UTF-8</code>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <section class="card">
-            <h2><span class="icon"></span> Troubleshooting Reference</h2>
-            <table class="fix-table">
-                <thead>
-                    <tr>
-                        <th>Issue</th>
-                        <th>Solution</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>AUR apps not appearing</td>
-                        <td>Update desktop database or restart session.</td>
-                    </tr>
-                    <tr>
-                        <td>Discord Screen Share</td>
-                        <td>Use Vesktop + xdg-desktop-portal-hyprland.</td>
-                    </tr>
-                </tbody>
-            </table>
+        <!-- 3. Desktop Environment -->
+        <section id="desktop" class="content-card">
+            <h2 class="text-3xl font-bold mb-6 flex items-center">
+                <span class="section-num">03.</span> Desktop Environment
+            </h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                <div class="p-4 bg-surface0 rounded-xl text-center">
+                    <div class="text-mauve text-2xl mb-2">󰖲</div>
+                    <div class="text-sm font-bold">Hyprland</div>
+                    <div class="text-xs text-subtext">Compositor</div>
+                </div>
+                <div class="p-4 bg-surface0 rounded-xl text-center">
+                    <div class="text-pink text-2xl mb-2">󰞷</div>
+                    <div class="text-sm font-bold">Kitty</div>
+                    <div class="text-xs text-subtext">Terminal</div>
+                </div>
+                <div class="p-4 bg-surface0 rounded-xl text-center">
+                    <div class="text-teal text-2xl mb-2">󰀻</div>
+                    <div class="text-sm font-bold">Waybar</div>
+                    <div class="text-xs text-subtext">Status Bar</div>
+                </div>
+                <div class="p-4 bg-surface0 rounded-xl text-center">
+                    <div class="text-blue text-2xl mb-2">󰀻</div>
+                    <div class="text-sm font-bold">Wofi</div>
+                    <div class="text-xs text-subtext">Launcher</div>
+                </div>
+            </div>
+            
+            <div class="space-y-4 text-subtext">
+                <p><strong class="text-text">Display & Integration:</strong> Using Google Chrome (via AUR) and Flatpak for sandboxed applications.</p>
+                <div class="p-4 bg-crust border border-surface1 rounded-lg text-sm italic">
+                    Note: If Flatpak apps don't appear in the launcher, ensure XDG_DATA_DIRS includes the path or restart your session.
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Audio & Comm -->
+        <section id="audio" class="content-card">
+            <h2 class="text-3xl font-bold mb-6 flex items-center">
+                <span class="section-num">04.</span> Audio & Communication
+            </h2>
+            <div class="mb-6">
+                <h3 class="text-mauve font-semibold mb-2">PipeWire Stack</h3>
+                <p class="text-subtext mb-4">High-fidelity routing with PipeWire and GUI patchbays.</p>
+                <div class="kitty-terminal">
+                    <code>sudo pacman -S pipewire pipewire-pulse wireplumber pwvucontrol qpwgraph</code>
+                </div>
+            </div>
+
+            <div class="border-t border-surface0 pt-6">
+                <h3 class="text-pink font-semibold mb-2">Discord/Vesktop (Wayland Fixes)</h3>
+                <ol class="list-decimal list-inside space-y-2 text-subtext">
+                    <li>Use <strong>Vesktop</strong> for superior screen sharing on Wayland.</li>
+                    <li>Use <code>xdg-desktop-portal-hyprland</code> (remove -wlr to avoid conflicts).</li>
+                    <li>Update your <code>hyprland.conf</code>:</li>
+                </ol>
+                <div class="kitty-terminal">
+                    <code>exec-once = dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP</code>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. GRUB Customization -->
+        <section class="content-card text-center">
+            <h2 class="text-3xl font-bold mb-4">05. GRUB Customization</h2>
+            <p class="text-subtext mb-6">I followed this tutorial to achieve the aesthetic bootloader screen shown in the results.</p>
+            <a href="https://www.youtube.com/watch?v=p_XDnrVsq6k" target="_blank" class="inline-flex items-center gap-3 bg-mauve text-base px-8 py-3 rounded-full font-bold hover:bg-pink transition transform hover:scale-105">
+                <span>󰗃</span> Watch Tutorial
+            </a>
+        </section>
+
+        <!-- 6. Troubleshooting -->
+        <section id="fixit" class="mb-12">
+            <h2 class="text-3xl font-bold mb-8 flex items-center">
+                <span class="section-num">06.</span> Troubleshooting Reference
+            </h2>
+            <div class="overflow-x-auto">
+                <table class="fix-table">
+                    <thead>
+                        <tr>
+                            <th>Issue</th>
+                            <th>Solution</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>AUR apps not appearing</td>
+                            <td>Run <code>update-desktop-database ~/.local/share/applications</code> or restart session.</td>
+                        </tr>
+                        <tr>
+                            <td>Discord Screen Share</td>
+                            <td>Check <code>systemctl --user status xdg-desktop-portal</code>; ensure Hyprland portal is active.</td>
+                        </tr>
+                        <tr>
+                            <td>Python Errors</td>
+                            <td>Use <code>yay -S python-sphinx</code> for build deps; export <code>LC_ALL</code> for locale.</td>
+                        </tr>
+                        <tr>
+                            <td>Duplicate Discord</td>
+                            <td>Check both <code>pacman</code> and <code>flatpak</code> lists. Remove Flatpak to avoid path confusion.</td>
+                        </tr>
+                        <tr>
+                            <td>RTKit / WirePlumber</td>
+                            <td>Add user to the <code>realtime</code> group or verify <code>rtkit</code> is installed.</td>
+                        </tr>
+                        <tr>
+                            <td>Moving Windows</td>
+                            <td>In Hyprland, use <code>Super + Shift + [1-9]</code> to move to specific workspace.</td>
+                        </tr>
+                        <tr>
+                            <td>Electron/Web Notifications</td>
+                            <td>Add <code>ELECTRON_OZONE_PLATFORM_HINT=wayland</code> to <code>/etc/environment</code>.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Resources -->
+        <section class="grid md:grid-cols-3 gap-6 mb-12">
+            <div class="content-card !mb-0 p-6">
+                <h4 class="font-bold mb-4 text-pink">🔗 Useful Resources</h4>
+                <div class="space-y-3">
+                    <a href="#" class="resource-link">󰈙 Grub-Btrfs Issues</a>
+                    <a href="#" class="resource-link">󰈙 Secure Boot Guide</a>
+                    <a href="#" class="resource-link">󰈙 Manual Dual Boot</a>
+                </div>
+            </div>
+            <div class="content-card !mb-0 p-6 md:col-span-2">
+                <h4 class="font-bold mb-4 text-teal">󱄅 System Hint</h4>
+                <p class="text-sm text-subtext leading-relaxed">
+                    Always maintain your system by checking the Arch Linux news before running a <code>-Syu</code>. For Hyprland, keep an eye on breaking changes in the wiki as the compositor is rapidly evolving.
+                </p>
+            </div>
+        </section>
+
+        <!-- 7. Final Result Gallery -->
+        <section id="result">
+            <h2 class="text-3xl font-bold mb-8 flex items-center">
+                <span class="section-num">07.</span> Final Result
+            </h2>
+            
+            <div class="gallery-container">
+                <div class="gallery-item col-span-2">
+                    <img src="image_153c60.jpg" alt="Wallpaper View">
+                    <div class="gallery-label">Clean Aesthetic Wallpaper & Layout</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="image_153c63.jpg" alt="Wofi Launcher">
+                    <div class="gallery-label">Customized Wofi App Launcher</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="image_153c7c.png" alt="Terminal Tiling">
+                    <div class="gallery-label">Hyprland Tiling (Kitty Terminals)</div>
+                </div>
+                <div class="gallery-item col-span-2">
+                    <img src="image_153c7f.jpg" alt="GRUB Customization">
+                    <div class="gallery-label">The "Madeline" Custom Bootloader Theme</div>
+                </div>
+            </div>
         </section>
 
     </main>
 
-    <footer>
-        <p>Built with  on Arch Linux</p>
+    <footer class="text-center py-12 border-t border-surface0 mt-20">
+        <div class="flex justify-center gap-4 mb-4">
+            <span class="text-mauve text-2xl"></span>
+            <span class="text-pink text-2xl"></span>
+        </div>
+        <p class="text-subtext">Built with  using Arch Linux + Hyprland</p>
+        <p class="text-xs text-overlay1 mt-2">© 2024 Ultimate Setup Guide</p>
     </footer>
 
 </body>
