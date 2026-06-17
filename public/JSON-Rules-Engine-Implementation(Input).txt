@@ -1,0 +1,72 @@
+  const facts = {
+    age: 25,
+    country: "CN"
+  };
+
+  // =========================
+  // 🧱 GRAPH
+  // =========================
+  const graph: Graph = {
+    nodes: [
+      { id: "start", type: "start" },
+
+      { id: "rule1", type: "rule", ruleId: "ageRule" },
+      { id: "rule2", type: "rule", ruleId: "countryRule" },
+
+      { id: "allow", type: "action", action: "ALLOW" },
+      { id: "deny", type: "action", action: "DENY" },
+      { id: "block", type: "action", action: "BLOCK" }
+    ],
+
+    edges: [
+      { from: "start", to: "rule1" },
+
+      { from: "rule1", to: "rule2", label: "ALLOW" },
+      { from: "rule1", to: "deny", label: "DENY" },
+
+      { from: "rule2", to: "allow", label: "US" },
+      { from: "rule2", to: "block", label: "CN" }
+    ]
+  };
+
+  // =========================
+  // 🔥 RULES
+  // =========================
+  const ageRule = createRuleEngine([
+    {
+      conditions: {
+        all: [{ fact: "age", operator: "greaterThan", value: 18 }]
+      },
+      event: { type: "ALLOW" }
+    },
+    {
+      conditions: {
+        all: [{ fact: "age", operator: "lessThan", value: 18 }]
+      },
+      event: { type: "DENY" }
+    }
+  ]);
+
+  const countryRule = createRuleEngine([
+    {
+      conditions: {
+        all: [{ fact: "country", operator: "equal", value: "US" }]
+      },
+      event: { type: "US" }
+    },
+    {
+      conditions: {
+        all: [{ fact: "country", operator: "equal", value: "CN" }]
+      },
+      event: { type: "CN" }
+    },
+    {
+      conditions: {
+        all: [
+          { fact: "country", operator: "notEqual", value: "US" },
+          { fact: "country", operator: "notEqual", value: "CN" }
+        ]
+      },
+      event: { type: "OTHER" }
+    }
+  ]);

@@ -1,0 +1,93 @@
+{
+  "nav": [
+    { "label": "Home", "href": "#home" },
+    { "label": "About Me", "href": "#about-me" },
+    { "label": "Job Role", "href": "#job-role" },
+    {
+      "label": "GWBL1",
+      "dropdown": [
+        { "label": "Content and Evidences", "href": "#gwbl1-content" },
+        { "label": "Reflection", "href": "#gwbl1-reflection" }
+      ]
+    },
+    { "label": "More Content", "href": "#more-content" }
+  ],
+  "sections": [
+    {
+      "id": "home",
+      "type": "hero",
+      "title": "Hi, I'm Miles",
+      "subtitle": "Software Engineer Intern",
+      "description": "Welcome to my digital portfolio! I am currently interning at A*STAR Advanced Remanufacturing and Technology Centre (ARTC) within the Digital Supply Chain (DSC) department.",
+      "image": "/profile-pic.jpg",
+      "email": "youremail@example.com",
+      "linkedin": "https://linkedin.com/in/yourprofile"
+    },
+    {
+      "id": "about-me",
+      "type": "text",
+      "title": "About Me",
+      "content": "I am interning at A*STAR ARTC in the Digital Supply Chain (DSC) department. My primary focus has been on full-stack web development, exploring modern frameworks and rules engines to enhance supply chain workflows.\n\nDuring the first eight weeks of my internship, my objective was to become familiar with the organization, development environment, and technology stack while contributing to software development projects."
+    },
+    {
+      "id": "job-role",
+      "type": "text",
+      "title": "Job Role & Project",
+      "content": "As a Software Engineer Intern, my assigned job role involves setting up local development environments, contributing to the existing DWA project, and researching/developing workflow architectures.\n\nMy responsibilities included cloning repositories, configuring PostgreSQL databases, running Prisma migrations, integrating Clerk Authentication, and developing a custom rules engine prototype."
+    },
+    {
+      "id": "gwbl1-content",
+      "type": "projects",
+      "title": "GWBL1: Content and Evidences",
+      "description": "Tangible evidence of tasks completed, projects worked on, and challenges overcome.",
+      "items": [
+        {
+          "title": "Full-Stack Project Environment Setup",
+          "subtitle": "React, Next.js, Prisma, PostgreSQL & Clerk",
+          "description": "My first technical task involved setting up the project environment on my local machine. This included cloning repositories using Git and SSH, installing dependencies, configuring PostgreSQL, running Prisma migrations, and integrating Clerk authentication. This gave me practical experience in full-stack application setup and resolving environment issues through research.",
+          "image": "https://via.placeholder.com/500x300",
+          "imagePosition": "left",
+          "tags": ["Full-Stack", "Environment Setup", "PostgreSQL", "Auth"]
+        },
+        {
+          "title": "JSON Rules Engine Implementation",
+          "subtitle": "Rule-Based Workflow Execution",
+          "description": "This implementation explores how a JSON rules engine can drive workflow decisions using facts, conditions, graph nodes, and labelled edges. The engine receives input facts such as age and country, evaluates them against JSON-style rules, then follows the matching path through the graph until it reaches a final action. In the example shown, the facts pass the age rule, match the country rule for CN, and finish at the BLOCK action. This helped me understand how business logic can be represented as configurable data instead of hard-coded application branches.",
+          "image": "/JSON-Rules-Engine-Implementation(Output).png",
+          "imagePosition": "right",
+          "tags": ["JSON Rules Engine", "Graph Workflow", "Runtime Execution"],
+          "assets": [
+            {
+              "label": "Input facts, graph, and rules",
+              "href": "/JSON-Rules-Engine-Implementation(Input).txt"
+            },
+            {
+              "label": "Execution output",
+              "href": "/JSON-Rules-Engine-Implementation(Output).png"
+            }
+          ]
+        },
+        {
+          "title": "JSON Rules Editor Iteration",
+          "subtitle": "UI/UX & Feedback Loops",
+          "description": "Transitioning from the prototype, I developed a JSON Rules Editor refined through multiple iterations based on supervisor feedback. Regular reviews allowed me to monitor progress, validate requirements, and adjust efficiently, highlighting the importance of agile communication.",
+          "image": "/JSON-Rules-Editor.png",
+          "imagePosition": "left",
+          "tags": ["React", "UI/UX", "Iterative Development"]
+        }
+      ]
+    },
+    {
+      "id": "gwbl1-reflection",
+      "type": "text",
+      "title": "GWBL1: Reflection",
+      "content": "**Broadening of Skills:** Addressed learning gaps in React, Next.js, Prisma, and PostgreSQL through independent research and documentation review.\n\n**Applying Knowledge, Skills, and Abilities (KSA):** Applied software engineering principles to configure environments, commit to feature branches via Git, and evaluate rules engines based on modularity and scalability.\n\n**Growth Context:** Developed a greater appreciation for understanding project context and aligning technical solutions with organizational objectives. The experience of discovering overlap with existing functionalities taught me the vital importance of validating assumptions early."
+    },
+    {
+      "id": "more-content",
+      "type": "text",
+      "title": "More Content: Outlook & Accomplishments",
+      "content": "**Accomplishments:** Successfully set up full-stack projects independently, evaluated complex architecture, and shipped iterative UI improvements.\n\n**Challenges Faced:** Navigating new tech stacks and understanding large existing codebases presented steep learning curves, which I overcame through persistence and effective communication with my supervisor.\n\n**Learning and Growth:** The internship provides immense opportunities for learning modern stack development and professional workflow practices. Moving forward, I aspire to take on more complex architectural challenges and further hone my skills as a scalable full-stack developer."
+    }
+  ]
+}
