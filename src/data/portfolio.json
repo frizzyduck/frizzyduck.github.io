@@ -16,6 +16,7 @@
     {
       "id": "home",
       "type": "hero",
+      "background": "fade",
       "title": "Hi, I'm Miles",
       "subtitle": "Software Engineer Intern",
       "description": "Welcome to my digital portfolio! I am currently interning at A*STAR Advanced Remanufacturing and Technology Centre (ARTC) within the Digital Supply Chain (DSC) department.",
@@ -26,6 +27,7 @@
     {
       "id": "about-me",
       "type": "page",
+      "background": "plain",
       "title": "About Me",
       "blocks": [
         {
@@ -37,6 +39,7 @@
     {
       "id": "job-role",
       "type": "page",
+      "background": "plain",
       "title": "Job Role & Project",
       "blocks": [
         {
@@ -48,6 +51,7 @@
     {
       "id": "gwbl1-content",
       "type": "page",
+      "background": "fade",
       "title": "GWBL1: Content and Evidences",
       "description": "Tangible evidence of tasks completed, projects worked on, and challenges overcome.",
       "items": [
@@ -93,6 +97,7 @@
     {
       "id": "gwbl1-reflection",
       "type": "page",
+      "background": "plain",
       "title": "GWBL1: Reflection",
       "blocks": [
         {
@@ -104,6 +109,7 @@
     {
       "id": "more-content",
       "type": "page",
+      "background": "plain",
       "title": "More Content: Outlook & Accomplishments",
       "blocks": [
         {
