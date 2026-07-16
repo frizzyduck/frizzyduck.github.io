@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { NavItem, ThemeName } from '../types';
+import type { NavItem, ThemeName, PortfolioSection } from '../types';
 
 const themes: { label: string; value: ThemeName }[] = [
   { label: 'Light', value: 'light' },
@@ -11,9 +11,26 @@ interface NavBarProps {
   nav: NavItem[];
   theme: ThemeName;
   setTheme: (theme: ThemeName) => void;
+  sections: PortfolioSection[];
 }
 
-export function NavBar({ nav, theme, setTheme }: NavBarProps) {
+function isNavItemStandalone(item: NavItem, sections: PortfolioSection[]): boolean {
+  if (item.href) {
+    const targetId = item.href.startsWith('#') ? item.href.slice(1) : item.href;
+    const section = sections.find((s) => s.id === targetId);
+    if (section?.renderMode === 'new-page') return true;
+  }
+  if (item.dropdown) {
+    return item.dropdown.some((d) => {
+      const targetId = d.href.startsWith('#') ? d.href.slice(1) : d.href;
+      const section = sections.find((s) => s.id === targetId);
+      return section?.renderMode === 'new-page';
+    });
+  }
+  return false;
+}
+
+export function NavBar({ nav, theme, setTheme, sections }: NavBarProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -25,31 +42,44 @@ export function NavBar({ nav, theme, setTheme }: NavBarProps) {
         </a>
 
         <nav className="hidden items-center gap-6 md:flex">
-          {nav.map((item, idx) => (
-            <div key={idx} className="group relative">
-              {item.dropdown ? (
-                <div className="cursor-pointer py-2 text-sm font-medium text-[var(--text-muted)] transition hover:text-[var(--text-strong)]">
-                  {item.label}
-                  <span className="ml-1 text-xs text-[var(--text-muted)]">v</span>
-                  <div className="menu-popover absolute left-0 top-full hidden w-52 rounded-md border p-2 shadow-xl transition-all group-hover:block">
-                    {item.dropdown.map((drop, dIdx) => (
-                      <a
-                        key={dIdx}
-                        href={drop.href}
-                        className="block rounded px-3 py-2 text-sm text-[var(--text-muted)] transition hover:bg-[var(--surface-hover)] hover:text-[var(--text-strong)]"
-                      >
-                        {drop.label}
-                      </a>
-                    ))}
-                  </div>
+          {nav.map((item, idx) => {
+            const isStandalone = isNavItemStandalone(item, sections);
+            const prevItem = idx > 0 ? nav[idx - 1] : null;
+            const prevIsStandalone = prevItem ? isNavItemStandalone(prevItem, sections) : false;
+
+            const showSeparator = idx > 0 && (isStandalone !== prevIsStandalone || (isStandalone && prevIsStandalone));
+
+            return (
+              <div key={idx} className="flex items-center gap-6">
+                {showSeparator && (
+                  <div className="h-4 w-px bg-[var(--border)]" aria-hidden="true" />
+                )}
+                <div className="group relative">
+                  {item.dropdown ? (
+                    <div className="cursor-pointer py-2 text-sm font-medium text-[var(--text-muted)] transition hover:text-[var(--text-strong)]">
+                      {item.label}
+                      <span className="ml-1 text-xs text-[var(--text-muted)]">v</span>
+                      <div className="menu-popover absolute left-0 top-full hidden w-52 rounded-md border p-2 shadow-xl transition-all group-hover:block">
+                        {item.dropdown.map((drop, dIdx) => (
+                          <a
+                            key={dIdx}
+                            href={drop.href}
+                            className="block rounded px-3 py-2 text-sm text-[var(--text-muted)] transition hover:bg-[var(--surface-hover)] hover:text-[var(--text-strong)]"
+                          >
+                            {drop.label}
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  ) : (
+                    <a href={item.href} className="py-2 text-sm font-medium text-[var(--text-muted)] transition hover:text-[var(--text-strong)]">
+                      {item.label}
+                    </a>
+                  )}
                 </div>
-              ) : (
-                <a href={item.href} className="py-2 text-sm font-medium text-[var(--text-muted)] transition hover:text-[var(--text-strong)]">
-                  {item.label}
-                </a>
-              )}
-            </div>
-          ))}
+              </div>
+            );
+          })}
         </nav>
 
         <div className="flex items-center gap-2">
@@ -90,35 +120,48 @@ export function NavBar({ nav, theme, setTheme }: NavBarProps) {
               </button>
             ))}
           </div>
-          {nav.map((item, idx) => (
-            <div key={idx}>
-              {item.dropdown ? (
-                <div className="flex flex-col gap-2">
-                  <span className="font-medium text-[var(--text-strong)]">{item.label}</span>
-                  <div className="ml-2 flex flex-col gap-2 border-l-2 border-[var(--border)] pl-4">
-                    {item.dropdown.map((drop, dIdx) => (
-                      <a
-                        key={dIdx}
-                        href={drop.href}
-                        onClick={() => setIsOpen(false)}
-                        className="text-[var(--text-muted)] hover:text-[var(--accent)]"
-                      >
-                        {drop.label}
-                      </a>
-                    ))}
-                  </div>
+          {nav.map((item, idx) => {
+            const isStandalone = isNavItemStandalone(item, sections);
+            const prevItem = idx > 0 ? nav[idx - 1] : null;
+            const prevIsStandalone = prevItem ? isNavItemStandalone(prevItem, sections) : false;
+
+            const showSeparator = idx > 0 && (isStandalone !== prevIsStandalone || (isStandalone && prevIsStandalone));
+
+            return (
+              <div key={idx} className="flex flex-col gap-4">
+                {showSeparator && (
+                  <div className="h-px w-full bg-[var(--border)] my-1" aria-hidden="true" />
+                )}
+                <div>
+                  {item.dropdown ? (
+                    <div className="flex flex-col gap-2">
+                      <span className="font-medium text-[var(--text-strong)]">{item.label}</span>
+                      <div className="ml-2 flex flex-col gap-2 border-l-2 border-[var(--border)] pl-4">
+                        {item.dropdown.map((drop, dIdx) => (
+                          <a
+                            key={dIdx}
+                            href={drop.href}
+                            onClick={() => setIsOpen(false)}
+                            className="text-[var(--text-muted)] hover:text-[var(--accent)]"
+                          >
+                            {drop.label}
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  ) : (
+                    <a
+                      href={item.href}
+                      onClick={() => setIsOpen(false)}
+                      className="font-medium text-[var(--text)] hover:text-[var(--accent)]"
+                    >
+                      {item.label}
+                    </a>
+                  )}
                 </div>
-              ) : (
-                <a
-                  href={item.href}
-                  onClick={() => setIsOpen(false)}
-                  className="font-medium text-[var(--text)] hover:text-[var(--accent)]"
-                >
-                  {item.label}
-                </a>
-              )}
-            </div>
-          ))}
+              </div>
+            );
+          })}
         </nav>
       )}
     </header>

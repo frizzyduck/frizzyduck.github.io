@@ -66,7 +66,7 @@ function App() {
 
   return (
     <div data-theme={theme} className="app-shell min-h-screen pb-20 font-sans">
-      <NavBar nav={data.nav} theme={theme} setTheme={setTheme} />
+      <NavBar nav={data.nav} theme={theme} setTheme={setTheme} sections={data.sections} />
 
       <main>
         {sectionsToRender.map((section, index) => {

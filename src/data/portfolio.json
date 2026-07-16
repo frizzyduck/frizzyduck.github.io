@@ -3,7 +3,6 @@
     { "label": "Home", "href": "#home" },
     { "label": "About Me", "href": "#about-me" },
     { "label": "Job Role", "href": "#job-role" },
-    { "label": "Internship Timeline", "href": "#internship-timeline" },
     {
       "label": "GWBL1",
       "dropdown": [
@@ -11,7 +10,9 @@
         { "label": "Reflection", "href": "#gwbl1-reflection" }
       ]
     },
-    { "label": "More Content", "href": "#more-content" }
+    { "label": "More Content", "href": "#more-content" },
+    { "label": "Internship Timeline", "href": "#internship-timeline" },
+    { "label": "Internship Chores", "href": "#internship-chores" }
   ],
   "sections": [
     {
@@ -91,6 +92,30 @@
               "subtitle": "Frontend Development & Feedback loops",
               "description": "Designed and iterated on an interactive front-end editor for the custom JSON rules engine. Incorporating constructive supervisor feedback, I streamlined rule creation, improved node-edge visualization, and refined the overall visual layouts.",
               "tags": ["UI/UX Design", "Feedback Loop", "React Components"]
+            },
+            {
+              "date": "Weeks 9 - 10",
+              "startDate": "08 Jun - 21 Jun 2026",
+              "title": "OCR & Voice Form Filling Development",
+              "subtitle": "AI-Driven Form Automation",
+              "description": "Individually engineered a 'mini-agent' prototype for voice form filling using voice-to-text and intent parsing. Expanded the scope from a single intent to three (fill field, query content, check empty fields) and developed a workaround for browser-based hands-free voice activation. Gathered team feedback and recorded a demo video to validate customer demand before project integration.",
+              "tags": ["AI Features", "OCR", "Voice Translation", "Web APIs"]
+            },
+            {
+              "date": "Week 11",
+              "startDate": "22 Jun - 28 Jun 2026",
+              "title": "Demo Video Production & Editing",
+              "subtitle": "Product Walkthrough & Showcase",
+              "description": "Recorded and post-processed a comprehensive video demonstration showcasing the smart Voice-to-Text form filling features in action to present to team supervisors.",
+              "tags": ["Video Production", "Product Demo", "Audio Recording"]
+            },
+            {
+              "date": "Weeks 12 - 13",
+              "startDate": "29 Jun - 12 Jul 2026",
+              "title": "Digitalising Customer Workflows",
+              "subtitle": "Workflow Visualization & Orchestration",
+              "description": "Helped to digitalise existing companies' workflows using our DWA (Digital Workflow Assistant) platform. Acquired hands-on experience with complicated client workflows, Good Manufacturing Practices (GMP), and SOP enforcement. Participated in customer meetings to clarify expectations and provide technical recommendations.",
+              "tags": ["Workflow Digitisation", "Interactive Graphs", "Partner Portal"]
             }
           ]
         }
@@ -144,6 +169,33 @@
           "image": "/JSON-Rules-Editor.png",
           "imagePosition": "left",
           "tags": ["React", "UI/UX", "Iterative Development"]
+        },
+        {
+          "type": "imageText",
+          "title": "OCR and Voice Form Filling",
+          "subtitle": "AI-Powered Automation",
+          "content": "Designed and built an individual prototype of an AI-powered 'mini-agent' for smart form filling, which converts voice inputs to text and applies natural language processing (NLP) to clarify user intent. I expanded the project's scope from the team's initial idea of a single intent (filling fields) to support three distinct intents: filling form fields, querying specific field contents, and checking which fields remain empty. I also conceived and built a hands-free 'Hey Siri'-style voice activation workaround for the browser environment, allowing voice trigger commands through keyword matching without manual touch. While this was an individual task, I iterated on the design based on team feedback and compiled a demo video to showcase these capabilities to customers before committing to main codebase integration. Developing and editing this video demo was a new skill I had to learn and master from scratch during this internship.",
+          "image": "/OCR and voice to fill up form.png",
+          "imagePosition": "right",
+          "tags": ["OCR", "Voice-to-Text", "API Integration", "Automation"],
+          "assets": [
+            {
+              "label": "Voice Form Filling Demo Video",
+              "href": "/DWA_Voice2Text_Form_Filling-Demo.mp4"
+            }
+          ]
+        },
+        {
+          "type": "imageText",
+          "title": "Digitalising Workflows for Partner Companies",
+          "subtitle": "Interactive Customer Flow Builders",
+          "content": "Helped to digitalise existing companies' workflows using our DWA (Digital Workflow Assistant) platform—the main project within our group. Through this work, I gained a deep understanding of complex business workflows, Good Manufacturing Practices (GMP) compliance, and SOP enforcement. I also participated directly in client meetings, learning how to clarify customer expectations, address their extensive operational requirements, and provide professional technical suggestions and opinions.",
+          "images": [
+            "/Digitalising companies, customers workflow execution graph.png",
+            "/Digitalising companies, customers workflow forms.png"
+          ],
+          "imagePosition": "left",
+          "tags": ["Workflow Builder", "Visualizer Graphs", "System Architecture"]
         }
       ]
     },
@@ -155,7 +207,35 @@
       "blocks": [
         {
           "type": "text",
-          "content": "**Broadening of Skills:** Addressed learning gaps in React, Next.js, Prisma, and PostgreSQL through independent research and documentation review.\n\n**Applying Knowledge, Skills, and Abilities (KSA):** Applied software engineering principles to configure environments, commit to feature branches via Git, and evaluate rules engines based on modularity and scalability.\n\n**Growth Context:** Developed a greater appreciation for understanding project context and aligning technical solutions with organizational objectives. The experience of discovering overlap with existing functionalities taught me the vital importance of validating assumptions early."
+          "content": "**Broadening of Technical & Media Skills:** Addressed learning gaps in React, Next.js, Prisma, and PostgreSQL through independent research. Additionally, I had to learn video editing and production from scratch during the internship to compile customer-facing product demonstrations.\n\n**Applying Knowledge, Skills, and Abilities (KSA):** Applied software engineering principles to configure environments and evaluate rules engines. I acquired deep operational workflow knowledge, particularly in Good Manufacturing Practices (GMP) and Standard Operating Procedures (SOP) compliance, which I applied to help digitalise complex processes.\n\n**Soft Skills & Client Engagement:** Developed vital communication skills by participating directly in client meetings, learning how to present technical opinions, ask clarifying questions, and manage extensive customer requirements. I also practiced team coordination by aligning team workflows using workflow visualization tools.\n\n**Operational & Ad-hoc Contribution:** Supported ARTC's daily operations (detailed under the **Internship Chores** tab page, separate from the main page) by coordinating technical support, managing multi-display presentation systems for events, and handling ad-hoc chores like document binding. Learning to accept constructive team feedback and pivot architectures taught me the importance of agile collaboration."
+        }
+      ]
+    },
+    {
+      "id": "internship-chores",
+      "type": "page",
+      "renderMode": "new-page",
+      "background": "fade",
+      "title": "Internship Chores",
+      "description": "Ad-hoc operational support, administrative assistance, and hardware management duties performed during my internship.",
+      "blocks": [
+        {
+          "type": "imageText",
+          "subtitle": "IT & Hardware Operations",
+          "title": "Multi-Display Presentation Systems",
+          "content": "Responsible for setting up, managing, and maintaining multi-display system configurations in the presentation rooms. Provided technical support for events, seminars, and organizational presentations to ensure smooth operational delivery.",
+          "image": "/multi display presentation room.jpeg",
+          "imagePosition": "left",
+          "tags": ["AV Systems", "Technical Support", "Hardware Management"]
+        },
+        {
+          "type": "imageText",
+          "subtitle": "One-Day Administration",
+          "title": "Document Binding",
+          "content": "Assisted with formatting, printing, organizing, and binding physical copies of technical documents and reports. This administrative task was completed as part of team operational support.",
+          "image": "/binder.jpeg",
+          "imagePosition": "right",
+          "tags": ["Administration", "Operations Support", "Physical Materials"]
         }
       ]
     },
