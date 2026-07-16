@@ -141,6 +141,7 @@ body {
 
 .body-copy {
   color: var(--text-muted);
+  font-size: 1.0625rem;
   line-height: 1.75;
 }
 

@@ -150,7 +150,6 @@
     {
       "id": "gwbl1-reflection",
       "type": "page",
-      "renderMode": "new-page",
       "background": "plain",
       "title": "GWBL1: Reflection",
       "blocks": [
