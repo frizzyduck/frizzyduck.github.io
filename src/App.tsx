@@ -35,12 +35,18 @@ interface AssetLink {
   href: string;
 }
 
+interface ContentImage {
+  src: string;
+  alt?: string;
+}
+
 interface ContentBlock {
   type: ContentBlockType;
   title?: string;
   subtitle?: string;
   content: string;
   image?: string;
+  images?: (string | ContentImage)[];
   imageAlt?: string;
   imagePosition?: ImagePosition;
   tags?: string[];
@@ -119,6 +125,16 @@ function renderFormattedText(text: string, className = 'body-copy mb-4') {
       </p>
     );
   });
+}
+
+function getBlockImages(block: ContentBlock): ContentImage[] {
+  const images = block.images?.map((image) => (typeof image === 'string' ? { src: image } : image)) ?? [];
+
+  if (images.length > 0) {
+    return images.slice(0, 4).filter((image) => image.src);
+  }
+
+  return block.image ? [{ src: block.image, alt: block.imageAlt }] : [];
 }
 
 function NavBar({
@@ -322,7 +338,14 @@ function ContentBlock({
   onPreviewImage: (image: { src: string; alt: string }) => void;
 }) {
   const isImageLeft = block.imagePosition === 'left';
-  const hasImageLayout = block.type === 'imageText' && block.image;
+  const blockImages = getBlockImages(block);
+  const hasImageLayout = block.type === 'imageText' && blockImages.length > 0;
+  const imageGridClass =
+    blockImages.length === 1
+      ? 'grid-cols-1'
+      : blockImages.length === 2
+        ? 'grid-cols-2'
+        : 'grid-cols-2 grid-rows-2';
   const textContent = (
     <div>
       {block.subtitle && <p className="mb-3 text-sm font-semibold uppercase tracking-normal text-[var(--accent)]">{block.subtitle}</p>}
@@ -365,18 +388,27 @@ function ContentBlock({
         }`}
       >
         <div className={isImageLeft ? 'md:order-1' : 'md:order-2'}>
-          <button
-            type="button"
-            className="media-frame image-preview-trigger overflow-hidden rounded-md border shadow-xl"
-            onClick={() => onPreviewImage({ src: block.image || '', alt: block.imageAlt || block.title || 'Portfolio image' })}
-            aria-label={`Open larger preview of ${block.title || 'portfolio image'}`}
-          >
-            <img
-              src={block.image}
-              alt={block.imageAlt || block.title || ''}
-              className="h-full w-full object-cover"
-            />
-          </button>
+          <div className={`media-frame image-preview-grid grid aspect-[5/3] ${imageGridClass} overflow-hidden rounded-md border shadow-xl`}>
+            {blockImages.map((image, imageIdx) => {
+              const imageAlt = image.alt || block.imageAlt || block.title || `Portfolio image ${imageIdx + 1}`;
+
+              return (
+                <button
+                  key={`${image.src}-${imageIdx}`}
+                  type="button"
+                  className="image-preview-trigger overflow-hidden"
+                  onClick={() => onPreviewImage({ src: image.src, alt: imageAlt })}
+                  aria-label={`Open larger preview of ${imageAlt}`}
+                >
+                  <img
+                    src={image.src}
+                    alt={imageAlt}
+                    className="h-full w-full object-cover"
+                  />
+                </button>
+              );
+            })}
+          </div>
         </div>
         <div className={isImageLeft ? 'md:order-2' : 'md:order-1'}>{textContent}</div>
       </div>

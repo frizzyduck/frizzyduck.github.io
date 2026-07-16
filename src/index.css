@@ -244,6 +244,10 @@ body {
 .image-preview-trigger {
   display: block;
   width: 100%;
+  height: 100%;
+  border: 0;
+  background: transparent;
+  padding: 0;
   cursor: zoom-in;
   text-align: left;
   transition:
@@ -255,6 +259,14 @@ body {
 .image-preview-trigger:hover {
   border-color: var(--accent);
   box-shadow: 0 28px 76px -36px var(--accent);
+}
+
+.image-preview-grid {
+  width: 100%;
+}
+
+.image-preview-grid .image-preview-trigger:hover {
+  transform: scale(1.02);
 }
 
 .image-modal {

@@ -21,8 +21,8 @@
       "subtitle": "Software Engineer Intern",
       "description": "Welcome to my digital portfolio! I am currently interning at A*STAR Advanced Remanufacturing and Technology Centre (ARTC) within the Digital Supply Chain (DSC) department.",
       "image": "/profile-pic.jpg",
-      "email": "youremail@example.com",
-      "linkedin": "https://linkedin.com/in/yourprofile"
+      "email": "miles.nin.001@gmail.com",
+      "linkedin": "https://www.linkedin.com/in/miles-foo-558b29313"
     },
     {
       "id": "about-me",
@@ -60,7 +60,12 @@
           "title": "Full-Stack Project Environment Setup",
           "subtitle": "React, Next.js, Prisma, PostgreSQL & Clerk",
           "content": "My first technical task involved setting up the project environment on my local machine. This included cloning repositories using Git and SSH, installing dependencies, configuring PostgreSQL, running Prisma migrations, and integrating Clerk authentication. This gave me practical experience in full-stack application setup and resolving environment issues through research.",
-          "image": "https://via.placeholder.com/500x300",
+          "images": [
+            "/nextjs.jpeg",
+            "/React logo.webp",
+            "/Prisma.jpg",
+            "/postgresql.png"
+          ],
           "imagePosition": "left",
           "tags": ["Full-Stack", "Environment Setup", "PostgreSQL", "Auth"]
         },
