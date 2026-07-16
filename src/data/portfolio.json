@@ -58,47 +58,41 @@
       "description": "Chronological breakdown of key milestones, technical tasks, and deliverables completed during my internship at A*STAR ARTC.",
       "blocks": [
         {
-          "type": "imageText",
-          "subtitle": "Weeks 1 - 2",
-          "title": "Onboarding & Environment Setup",
-          "content": "Acclimatized to the organization's workflows and development standards. Set up the local environment, cloned internal repositories using SSH, configured PostgreSQL and Prisma schemas, and successfully integrated Clerk Authentication for secure local session management.",
-          "images": [
-            "/postgresql.png",
-            "/Prisma.jpg",
-            "/nextjs.jpeg"
-          ],
-          "imagePosition": "left",
-          "tags": ["Git", "PostgreSQL", "Prisma", "Authentication"]
-        },
-        {
-          "type": "imageText",
-          "subtitle": "Weeks 3 - 4",
-          "title": "DWA Project Contribution",
-          "content": "Collaborated with the team to understand the existing DWA (Digital Workflow Assistant) codebase. Assisted in debugging API routes, configuring databases, running schema migrations, and researching scalable workflow architectures.",
-          "images": [
-            "/React logo.webp",
-            "/nextjs.jpeg"
-          ],
-          "imagePosition": "right",
-          "tags": ["Next.js", "React", "Full-Stack Dev"]
-        },
-        {
-          "type": "imageText",
-          "subtitle": "Weeks 5 - 6",
-          "title": "Rules Engine Prototype Development",
-          "content": "Researched and built a custom rules engine prototype powered by JSON. The engine runs rule evaluations against input facts (e.g. user conditions, regional context) and traverses graph structures to decide workflow triggers dynamically.",
-          "image": "/JSON-Rules-Engine-Implementation(Output).png",
-          "imagePosition": "left",
-          "tags": ["JSON Rules Engine", "System Architecture", "Graph Traversal"]
-        },
-        {
-          "type": "imageText",
-          "subtitle": "Weeks 7 - 8",
-          "title": "Interactive Rules Editor & UI Polish",
-          "content": "Designed and iterated on an interactive front-end editor for the custom JSON rules engine. Incorporating constructive supervisor feedback, I streamlined rule creation, improved node-edge visualization, and refined the overall visual layouts.",
-          "image": "/JSON-Rules-Editor.png",
-          "imagePosition": "right",
-          "tags": ["UI/UX Design", "Feedback Loop", "React Components"]
+          "type": "timeline",
+          "timelineItems": [
+            {
+              "date": "Weeks 1 - 2",
+              "startDate": "13 Apr - 26 Apr 2026",
+              "title": "Onboarding & Environment Setup",
+              "subtitle": "Setting up Local Stack",
+              "description": "Acclimatized to the organization's workflows and development standards. Set up the local environment, cloned internal repositories using SSH, configured PostgreSQL and Prisma schemas, and successfully integrated Clerk Authentication for secure local session management.",
+              "tags": ["Git", "PostgreSQL", "Prisma", "Authentication"]
+            },
+            {
+              "date": "Weeks 3 - 4",
+              "startDate": "27 Apr - 10 May 2026",
+              "title": "DWA Project Contribution",
+              "subtitle": "Codebase Navigation & APIs",
+              "description": "Collaborated with the team to understand the existing DWA (Digital Workflow Assistant) codebase. Assisted in debugging API routes, configuring databases, running schema migrations, and researching scalable workflow architectures.",
+              "tags": ["Next.js", "React", "Full-Stack Dev"]
+            },
+            {
+              "date": "Weeks 5 - 6",
+              "startDate": "11 May - 24 May 2026",
+              "title": "Rules Engine Prototype Development",
+              "subtitle": "System Architecture Design",
+              "description": "Researched and built a custom rules engine prototype powered by JSON. The engine runs rule evaluations against input facts (e.g. user conditions, regional context) and traverses graph structures to decide workflow triggers dynamically.",
+              "tags": ["JSON Rules Engine", "System Architecture", "Graph Traversal"]
+            },
+            {
+              "date": "Weeks 7 - 8",
+              "startDate": "25 May - 07 Jun 2026",
+              "title": "Interactive Rules Editor & UI Polish",
+              "subtitle": "Frontend Development & Feedback loops",
+              "description": "Designed and iterated on an interactive front-end editor for the custom JSON rules engine. Incorporating constructive supervisor feedback, I streamlined rule creation, improved node-edge visualization, and refined the overall visual layouts.",
+              "tags": ["UI/UX Design", "Feedback Loop", "React Components"]
+            }
+          ]
         }
       ]
     },
