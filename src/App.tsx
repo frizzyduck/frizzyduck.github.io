@@ -19,6 +19,7 @@ interface BaseSection {
   type: SectionType;
   title: string;
   background?: SectionBackground;
+  renderMode?: 'main-page' | 'new-page';
 }
 
 interface HeroData extends BaseSection {
@@ -257,13 +258,23 @@ function NavBar({
   );
 }
 
-function HeroSection({ data }: { data: HeroData }) {
+function HeroSection({ data, isStandalone = false }: { data: HeroData; isStandalone?: boolean }) {
   return (
     <section
       id={data.id}
       className="mx-auto grid min-h-[calc(100svh-65px)] max-w-6xl scroll-mt-20 items-center gap-12 px-5 py-14 md:grid-cols-[minmax(0,1fr)_340px]"
     >
       <Reveal className="text-center md:text-left">
+        {isStandalone && (
+          <div className="mb-6 flex justify-center md:justify-start">
+            <a
+              href="#home"
+              className="group inline-flex items-center gap-2 text-sm font-semibold text-[var(--text-muted)] transition hover:text-[var(--accent)]"
+            >
+              <span className="transition-transform group-hover:-translate-x-1">&larr;</span> Back to Main Page
+            </a>
+          </div>
+        )}
         {data.subtitle && <p className="eyebrow mb-4 inline-flex rounded-full border px-3 py-1 text-sm font-semibold">{data.subtitle}</p>}
         <h1 className="heading-font mb-5 max-w-4xl text-5xl font-black leading-[0.96] tracking-normal text-[var(--text-strong)] md:text-7xl">
           {data.title.replace('Hi, ', '')}
@@ -419,9 +430,11 @@ function ContentBlock({
 function PageSection({
   data,
   onPreviewImage,
+  isStandalone = false,
 }: {
   data: PageData;
   onPreviewImage: (image: { src: string; alt: string }) => void;
+  isStandalone?: boolean;
 }) {
   const tags = useMemo(() => {
     const tagSet = new Set<string>();
@@ -435,6 +448,16 @@ function PageSection({
   return (
     <section id={data.id} className="scroll-mt-20 py-18">
       <div className="mx-auto mb-12 max-w-6xl px-5">
+        {isStandalone && (
+          <div className="mb-6">
+            <a
+              href="#home"
+              className="group inline-flex items-center gap-2 text-sm font-semibold text-[var(--text-muted)] transition hover:text-[var(--accent)]"
+            >
+              <span className="transition-transform group-hover:-translate-x-1">&larr;</span> Back to Main Page
+            </a>
+          </div>
+        )}
         <div className="grid gap-5 border-t border-[var(--border)] pt-8 md:grid-cols-[260px_1fr]">
           <h2 className="heading-font text-3xl font-black tracking-normal text-[var(--text-strong)]">{data.title}</h2>
           {data.description && <p className="max-w-3xl text-lg leading-8 text-[var(--text-muted)]">{data.description}</p>}
@@ -478,21 +501,64 @@ function PageSection({
 function App() {
   const [theme, setTheme] = useState<ThemeName>('dark');
   const [previewImage, setPreviewImage] = useState<{ src: string; alt: string } | null>(null);
+  const [currentHash, setCurrentHash] = useState(window.location.hash);
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
   }, [theme]);
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      setCurrentHash(window.location.hash);
+    };
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
+  const activeSectionId = currentHash.startsWith('#') ? currentHash.slice(1) : currentHash;
+  const activeSection = data.sections.find((s) => s.id === activeSectionId);
+  const isStandaloneActive = activeSection?.renderMode === 'new-page';
+
+  useEffect(() => {
+    if (!currentHash || currentHash === '#home') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    const targetId = currentHash.startsWith('#') ? currentHash.slice(1) : currentHash;
+    if (!targetId) return;
+
+    // Find the section to see if it's standalone or main page
+    const section = data.sections.find((s) => s.id === targetId);
+    const isStandalone = section?.renderMode === 'new-page';
+
+    if (isStandalone) {
+      window.scrollTo({ top: 0, behavior: 'auto' });
+    } else {
+      const timer = setTimeout(() => {
+        const element = document.getElementById(targetId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 50);
+      return () => clearTimeout(timer);
+    }
+  }, [currentHash]);
+
+  const sectionsToRender = isStandaloneActive
+    ? (activeSection ? [activeSection] : [])
+    : data.sections.filter((s) => s.renderMode !== 'new-page');
 
   return (
     <div data-theme={theme} className="app-shell min-h-screen pb-20 font-sans">
       <NavBar nav={data.nav} theme={theme} setTheme={setTheme} />
 
       <main>
-        {data.sections.map((section, index) => {
+        {sectionsToRender.map((section, index) => {
           if (section.type === 'hero') {
             return (
               <div key={index} className={`${getSectionClass(section)} border-b border-[var(--border)]`}>
-                <HeroSection data={section} />
+                <HeroSection data={section} isStandalone={isStandaloneActive} />
               </div>
             );
           }
@@ -500,7 +566,7 @@ function App() {
           if (section.type === 'page') {
             return (
               <div key={index} className={getSectionClass(section)}>
-                <PageSection data={section} onPreviewImage={setPreviewImage} />
+                <PageSection data={section} onPreviewImage={setPreviewImage} isStandalone={isStandaloneActive} />
               </div>
             );
           }
